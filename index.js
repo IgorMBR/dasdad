@@ -93,7 +93,7 @@ async function mostrarMetas() {
 }
 
 
-sync function marcarMetas() {
+async function marcarMetas() {
     if (metas.length === 0) {
         mostrarMensagem(" ⛔ Não existem metas cadastradas!");
         return;

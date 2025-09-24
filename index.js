@@ -1,12 +1,15 @@
-const { input, select } = require('@inquirer/prompts');
+const { input, select, checkbox } = require('@inquirer/prompts');
 
-console.log("=== 📱Sistema de Metas Pessoais ===");
 console.log("Bem-vindo ao sistema de metas pessoais!");
 
 let metas = []
 
 function limparTela() {
     console.clear();
+}
+
+function mostrarMensagem(mensagem) {
+    console.log(`\n${mensagem}\n`);
 }
 
 async function mostrarMenu() {
@@ -40,14 +43,15 @@ async function executarAcao(opcao) {
 
 async function iniciar() {
     limparTela();
-    mostraMensagem("=== 📱Sistema de Metas Pessoais ===");
+    mostrarMensagem("=== 📱Sistema de Metas Pessoais ===");
+
     while (true) {
         const opcao = await mostrarMenu();
 
         if (opcao === "sair") {
             await executarAcao(opcao);
             limparTela();
-            mostraMensagem("Até mais! 👋🏽");
+            mostrarMensagem("Até mais! 👋🏽");
             break;
         }
 
@@ -56,13 +60,18 @@ async function iniciar() {
 }
 
 async function adicionarMeta() {
-  let novaMeta = await input({
+  const descricao = await input({
     message: "Digite sua nova meta pessoal:"
   });
 
-  if (novaMeta.length === 0) {
+  if (descricao.length === 0) {
     mostrarMensagem("❌ Meta inválida. Tente novamente.");
     return;
+  }
+
+  const novaMeta = {
+    value: descricao,
+    checked: false
   }
 
   metas.push(novaMeta);
@@ -71,17 +80,27 @@ async function adicionarMeta() {
 }
 
 async function mostrarMetas() {
+    if (metas.length === 0) {
+        mostrarMensagem(" ⛔ Não existem metas cadastradas!");
+        return;
+    }
+
     console.log("Suas Metas Pessoais:");
     metas.forEach((meta, index) => {
-      console.log(`${index + 1}. ${meta}`);
+      const status = meta.checked ? "[x]" : "[ ]";  
+      console.log(`${status} ${index + 1}. ${meta.value}`);
     });
 }
 
-iniciar();
-/*async function main() {
-  await adicionarMeta();
-  await mostrarMetas();
-}
 
-main();
-*/
+sync function marcarMetas() {
+    if (metas.length === 0) {
+        mostrarMensagem(" ⛔ Não existem metas cadastradas!");
+        return;
+    }
+
+    const metasSelecionadas = await checkbox({
+        message: "Marque as metas que você já concluiu:",
+        choices: metas,
+    })
+iniciar();

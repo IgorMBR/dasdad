@@ -18,6 +18,7 @@ async function mostrarMenu() {
         choices: [
             { name: "Adicionar nova meta", value: "adicionar" },
             { name: "Mostrar todas as metas", value: "mostrar" },
+            { name: "Marcar metas como realizadas", value: "marcar" },
             { name: "Sair", value: "sair" }
         ]
     });
@@ -32,6 +33,9 @@ async function executarAcao(opcao) {
             break;
         case "mostrar":
             await mostrarMetas();
+            break;
+        case "marcar":
+            await marcarMetas();
             break;
         case "sair":
             console.log("Saindo do sistema. Até mais! 👋🏽");

@@ -61,13 +61,13 @@ async function adicionarMeta() {
   });
 
   if (novaMeta.length === 0) {
-    console.log("❌ Meta inválida. Tente novamente.");
+    mostrarMensagem("❌ Meta inválida. Tente novamente.");
     return;
   }
 
   metas.push(novaMeta);
 
-  console.log("✅ Meta adicionada com sucesso!");
+  mostrarMensagem("✅ Meta adicionada com sucesso!");
 }
 
 async function mostrarMetas() {

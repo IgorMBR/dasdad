@@ -101,6 +101,10 @@ sync function marcarMetas() {
 
     const metasSelecionadas = await checkbox({
         message: "Marque as metas que você já concluiu:",
-        choices: metas,
+        choices: metas.map (meta => 
+        ({  name: meta.value,
+            value: meta.index,
+            checked: meta.checked
+        }))
     })
 iniciar();

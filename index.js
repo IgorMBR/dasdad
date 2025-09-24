@@ -39,6 +39,8 @@ async function executarAcao(opcao) {
 }
 
 async function iniciar() {
+    limparTela();
+    mostraMensagem("=== 📱Sistema de Metas Pessoais ===");
     while (true) {
         const opcao = await mostrarMenu();
 

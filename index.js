@@ -107,10 +107,13 @@ async function marcarMetas() {
         message: "Marque as metas que você já concluiu:",
         choices: metas.map(meta => 
         ({  name: meta.value,
-            value: meta.value,
+            value: meta.value, 
             checked: meta.checked
         })),
     })
+
+    metas.forEach(meta => meta.checked = false);
+    
 
     metasSelecionadas.forEach(metaSelecionada => {
         const meta = metas.find(m => m.value === metaSelecionada);
